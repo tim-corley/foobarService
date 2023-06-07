@@ -1,0 +1,39 @@
+
+name: Source Job v2
+
+on:
+  repository_dispatch:
+    types: [trigger-job]
+
+jobs:
+  run_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          repository: tim-corley/simpleWeather
+          ref: master
+          path: './src'
+
+      - name: Step 1
+        run: echo "Step 1" && pwd && echo "-->" && ls -la
+        
+      - name: Copy Directory
+        run: |
+          pwd
+          mkdir -p destination-dir
+          cp -R ./src ./destination-dir
+          
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "<>"
+          
+      - name: Commit
+        run: |
+          git add .
+          git commit -m "fresh changes"
+          git push origin main
