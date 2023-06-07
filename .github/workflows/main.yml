@@ -1,0 +1,26 @@
+name: Source Job
+
+on:
+  repository_dispatch:
+    types: [trigger-job]
+
+jobs:
+  run_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          repository: tim-corley/simpleWeather
+          ref: master
+
+      # Add steps for your job or action
+      - name: Step 1
+        run: echo "Step 1" && cd src/ && pwd
+
+      - name: Step 2
+        run: echo "Step 2" && cd ../docs && ls -la
+
+      - name: Step 3
+        run: echo "Step 3"
