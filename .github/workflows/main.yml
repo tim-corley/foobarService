@@ -16,12 +16,13 @@ jobs:
           ref: master
 
       - name: Step 1
-        run: echo "Step 1"
+        run: echo "Step 1" && pwd && echo "-->" && ls -la
 
       - name: Copy Directory
         run: |
+          pwd
           mkdir -p destination-dir
-          cp -R src/ foobarService/destination-dir
+          cp -R src/ ./destination-dir
           
       - name: Configure Git
         run: |
