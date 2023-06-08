@@ -25,7 +25,7 @@ jobs:
         run: |
           pwd
           mkdir -p destination-dir-2
-          cp -r simpleWeather/src foobarService/destination-dir-2
+          cp -R ~/simpleWeather/src ./destination-dir-2
           
       - name: Configure Git
         run: |
