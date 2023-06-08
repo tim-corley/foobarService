@@ -1,0 +1,39 @@
+name: Source Job v3
+
+on:
+  repository_dispatch:
+    types: [trigger-job]
+
+jobs:
+  run_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v3
+
+      - name: Checkout target repository
+        uses: actions/checkout@v3
+        with:
+          repository: tim-corley/simpleWeather
+          ref: master
+
+      - name: Step 1 (Copy)
+        run: echo "Step 1" && pwd && echo "-->" && ls -la
+        
+      - name: Copy Directory
+        run: |
+          pwd
+          mkdir -p destination-dir-2
+          cp -r simpleWeather/src foobarService/destination-dir-2
+          
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "<>"
+          
+      - name: Commit
+        run: |
+          git add .
+          git commit -m "copy changes 1"
+          git push origin main
